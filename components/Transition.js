@@ -31,7 +31,7 @@ const collapseExpand = (index, position) => {
 
 const TransitionConfiguration = () => ({
   transitionSpec: {
-    duration: 5000,
+    duration: 500,
     easing: Easing.out(Easing.poly(4)),
     timing: Animated.timing
   },
@@ -41,9 +41,11 @@ const TransitionConfiguration = () => ({
     const { index } = scene;
 
     const height = layout.initHeight;
+    const width = layout.initWidth;
+
     const translateX = position.interpolate({
       inputRange: [index - 1, index, index + 1],
-      outputRange: [height / 10, 0, 0]
+      outputRange: [width, 0, 0]
     });
 
     const translateY = position.interpolate({
@@ -61,8 +63,8 @@ const TransitionConfiguration = () => ({
     });
 
     const rotateY = position.interpolate({
-      inputRange: [index - 1, index - 0.1, index, index + 1],
-      outputRange: ["20deg", "10deg", "0deg", "0deg"]
+      inputRange: [index - 0.5, index - 0.1, index, index + 1],
+      outputRange: ["0deg", "15deg", "0deg", "0deg"]
     });
 
     const borderRadius = position.interpolate({
@@ -72,14 +74,14 @@ const TransitionConfiguration = () => ({
 
     return {
       borderRadius,
-      // opacity,
+      opacity,
       transform: [
         {
           rotate: rotateY
         },
         { translateX },
         // { translateY },
-        { scaleY: collapseExpand(index, position) },
+        // { scaleY: collapseExpand(index, position) },
       ]
     };
   }
